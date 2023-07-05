@@ -38,9 +38,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Cobot' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Cobot' DTDL model already exists");
+                    return httpResponseHelper.CreateBadRequest(message: $"The 'Cobot' DTDL model already exists. Error:{e}");
                 }
                 catch (Exception e)
                 {
