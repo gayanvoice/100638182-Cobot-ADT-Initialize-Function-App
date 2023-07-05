@@ -1,17 +1,22 @@
 ﻿using Azure.DigitalTwins.Core;
-using System.Text.Json.Serialization;
 
 namespace InitAdtFunctionApp.Model
 {
     internal class CobotDigitalTwinModel
     {
-        [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinId)]
         public string Id { get; set; }
-
-        [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinETag)]
-        public string ETag { get; set; }
-
-        [JsonPropertyName("ElapsedTime")]
         public double ElapsedTime { get; set; }
+        public static BasicDigitalTwin GetBasicDigitalTwin(CobotDigitalTwinModel cobotDigitalTwinModel)
+        {
+            return new BasicDigitalTwin
+            {
+                Id = cobotDigitalTwinModel.Id,
+                Metadata = { ModelId = "dtmi:com:Cobot:Cobot;1" },
+                Contents =
+                    {
+                        { "elapsed_time", cobotDigitalTwinModel.ElapsedTime }
+                    },
+            };
+        }
     }
 }
