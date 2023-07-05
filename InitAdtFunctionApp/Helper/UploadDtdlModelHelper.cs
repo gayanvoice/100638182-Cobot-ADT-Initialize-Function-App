@@ -42,6 +42,10 @@ namespace InitAdtFunctionApp.Helper
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Cobot' DTDL model already exists");
                 }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                }
             }
             else
             {
@@ -63,6 +67,10 @@ namespace InitAdtFunctionApp.Helper
                 catch (RequestFailedException)
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Base' DTDL model already exists");
+                }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
                 }
             }
             else
@@ -86,6 +94,10 @@ namespace InitAdtFunctionApp.Helper
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'ControlBox' DTDL model already exists");
                 }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                }
             }
             else
             {
@@ -107,6 +119,10 @@ namespace InitAdtFunctionApp.Helper
                 catch (RequestFailedException)
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Elbow' DTDL model already exists");
+                }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
                 }
             }
             else
@@ -130,6 +146,10 @@ namespace InitAdtFunctionApp.Helper
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Payload' DTDL model already exists");
                 }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                }
             }
             else
             {
@@ -151,6 +171,10 @@ namespace InitAdtFunctionApp.Helper
                 catch (RequestFailedException)
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Shoulder' DTDL model already exists");
+                }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
                 }
             }
             else
@@ -174,6 +198,10 @@ namespace InitAdtFunctionApp.Helper
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Tool' DTDL model already exists");
                 }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                }
             }
             else
             {
@@ -195,6 +223,10 @@ namespace InitAdtFunctionApp.Helper
                 catch (RequestFailedException)
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Wrist1' DTDL model already exists");
+                }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
                 }
             }
             else
@@ -218,6 +250,10 @@ namespace InitAdtFunctionApp.Helper
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Wrist2' DTDL model already exists");
                 }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                }
             }
             else
             {
@@ -239,6 +275,10 @@ namespace InitAdtFunctionApp.Helper
                 catch (RequestFailedException)
                 {
                     return httpResponseHelper.CreateBadRequest(message: "The 'Wrist3' DTDL model already exists");
+                }
+                catch (Exception e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
                 }
             }
             else
