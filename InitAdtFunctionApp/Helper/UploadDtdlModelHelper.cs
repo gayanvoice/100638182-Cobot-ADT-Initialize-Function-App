@@ -23,7 +23,7 @@ namespace InitAdtFunctionApp.Helper
         }
         public void Create(string adtInstanceUrl)
         {
-            DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential();
+            DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ExcludeEnvironmentCredential = true });
             digitalTwinsClient = new DigitalTwinsClient(new Uri(adtInstanceUrl), defaultAzureCredential);
         }
         public async Task<HttpResponseMessage> CobotAsync()
