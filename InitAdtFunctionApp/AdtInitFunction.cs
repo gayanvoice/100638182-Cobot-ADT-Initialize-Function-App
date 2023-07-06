@@ -90,6 +90,24 @@ namespace InitAdtFunctionApp
                             return await createAdtModelHelper.CobotAsync();
                         case "ControlBox":
                             return await createAdtModelHelper.ControlBoxAsync();
+                        case "Payload":
+                            return await createAdtModelHelper.PayloadAsync();
+                        case "JointLoad":
+                            return await createAdtModelHelper.JointLoadAsync();
+                        case "Base":
+                            return await createAdtModelHelper.BaseAsync();
+                        case "Shoulder":
+                            return await createAdtModelHelper.ShoulderAsync();
+                        case "Elbow":
+                            return await createAdtModelHelper.ElbowAsync();
+                        case "Wrist1":
+                            return await createAdtModelHelper.Wrist1Async();
+                        case "Wrist2":
+                            return await createAdtModelHelper.Wrist2Async();
+                        case "Wrist3":
+                            return await createAdtModelHelper.Wrist3Async();
+                        case "Tool":
+                            return await createAdtModelHelper.ToolAsync();
                         default:
                             return httpResponseHelper.CreateBadRequest(message: "A valid 'adtModelName' parameter is required in the query string.");
                     }
