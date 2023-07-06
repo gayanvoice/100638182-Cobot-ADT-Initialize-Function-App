@@ -143,8 +143,24 @@ namespace InitAdtFunctionApp
                     {
                         case "CobotToControlBox":
                             return await createAdtRelationshipHelper.CobotToControlBoxAsync();
-                        case "ControlBox":
-                            // return await createAdtRelationshipHelper.ControlBoxAsync();
+                        case "CobotToJointLoad":
+                            return await createAdtRelationshipHelper.CobotToJointLoadAsync();
+                        case "CobotToPayload":
+                            return await createAdtRelationshipHelper.CobotToPayloadAsync();
+                        case "JointLoadToBase":
+                            return await createAdtRelationshipHelper.JointLoadToBaseAsync();
+                        case "JointLoadToShoulder":
+                            return await createAdtRelationshipHelper.JointLoadToShoulderAsync();
+                        case "JointLoadToElbow":
+                            return await createAdtRelationshipHelper.JointLoadToElbowAsync();
+                        case "JointLoadToWrist1":
+                            return await createAdtRelationshipHelper.JointLoadToWrist1Async();
+                        case "JointLoadToWrist2":
+                            return await createAdtRelationshipHelper.JointLoadToWrist2Async();
+                        case "JointLoadToWrist3":
+                            return await createAdtRelationshipHelper.JointLoadToWrist3Async();
+                        case "JointLoadToTool":
+                            return await createAdtRelationshipHelper.JointLoadToToolAsync();
                         default:
                             return httpResponseHelper.CreateBadRequest(message: "A valid 'adtRelationshipName' parameter is required in the query string.");
                     }
