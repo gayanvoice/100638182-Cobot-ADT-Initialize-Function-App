@@ -1,30 +1,15 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Azure.DigitalTwins.Core;
-using Azure.Identity;
-using Azure;
-using InitAdtFunctionApp.Model;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Linq.Expressions;
-using System.Net;
-using System.Text;
-using System.Reflection.Metadata;
-using Azure.Core;
 using InitAdtFunctionApp.Helper;
-using System.Diagnostics;
-using System.Drawing;
 
 namespace InitAdtFunctionApp
 {
-    public static class InitAdtFunction
+    public static class AdtInitFunction
     {
         [FunctionName("UploadDtdlModelFunction")]
         public static async Task<HttpResponseMessage> RunUploadDtdlModelFunction(
@@ -65,6 +50,8 @@ namespace InitAdtFunctionApp
                             return await uploadDtdlModelHelper.Wrist2Async();
                         case "Wrist3":
                             return await uploadDtdlModelHelper.Wrist3Async();
+                        case "JointLoad":
+                            return await uploadDtdlModelHelper.JointLoadAsync();
                         default:
                             return httpResponseHelper.CreateBadRequest(message: "A valid 'dtdlModelName' parameter is required in the query string.");
                     }
@@ -94,20 +81,59 @@ namespace InitAdtFunctionApp
                 CreateAdtModelHelper createAdtModelHelper = new CreateAdtModelHelper(httpResponseHelper: httpResponseHelper);
                 createAdtModelHelper.Create(adtInstanceUrl: adtInstanceUrl);
 
-                string dtdlModelName = req.Query["dtdlModelName"];
-                if (dtdlModelName is not null)
+                string adtModelName = req.Query["adtModelName"];
+                if (adtModelName is not null)
                 {
-                    switch (dtdlModelName)
+                    switch (adtModelName)
                     {
                         case "Cobot":
                             return await createAdtModelHelper.CobotAsync();
+                        case "ControlBox":
+                            return await createAdtModelHelper.ControlBoxAsync();
                         default:
-                            return httpResponseHelper.CreateBadRequest(message: "A valid 'dtdlModelName' parameter is required in the query string.");
+                            return httpResponseHelper.CreateBadRequest(message: "A valid 'adtModelName' parameter is required in the query string.");
                     }
                 }
                 else
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'dtdlModelName' parameter is required in the query string.");
+                    return httpResponseHelper.CreateBadRequest(message: "The 'adtModelName' parameter is required in the query string.");
+                }
+            }
+            else
+            {
+                return httpResponseHelper.CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
+            }
+        }
+        [FunctionName("CreateAdtRelationshipFunction")]
+        public static async Task<HttpResponseMessage> RunCreateAdtRelationshipFunction(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            HttpResponseHelper httpResponseHelper = new HttpResponseHelper();
+
+            string adtInstanceUrl = Environment.GetEnvironmentVariable("AdtInstanceUrl");
+            if (adtInstanceUrl is not null)
+            {
+
+                CreateAdtRelationshipHelper createAdtRelationshipHelper = new CreateAdtRelationshipHelper(httpResponseHelper: httpResponseHelper);
+                createAdtRelationshipHelper.Create(adtInstanceUrl: adtInstanceUrl);
+
+                string adtRelationshipName = req.Query["adtRelationshipName"];
+                if (adtRelationshipName is not null)
+                {
+                    switch (adtRelationshipName)
+                    {
+                        case "CobotToControlBox":
+                            return await createAdtRelationshipHelper.CobotToControlBoxAsync();
+                        case "ControlBox":
+                            // return await createAdtRelationshipHelper.ControlBoxAsync();
+                        default:
+                            return httpResponseHelper.CreateBadRequest(message: "A valid 'adtRelationshipName' parameter is required in the query string.");
+                    }
+                }
+                else
+                {
+                    return httpResponseHelper.CreateBadRequest(message: "The 'adtRelationshipName' parameter is required in the query string.");
                 }
             }
             else

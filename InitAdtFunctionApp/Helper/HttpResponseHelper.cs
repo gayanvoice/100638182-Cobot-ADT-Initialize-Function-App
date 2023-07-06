@@ -41,5 +41,15 @@ namespace InitAdtFunctionApp.Helper
             httpResponseModel.Duration = _stopwatch.Elapsed.TotalMilliseconds;
             return Create(httpResponseModel);
         }
+        public HttpResponseMessage CreateBadRequest(string message, object exception)
+        {
+            _stopwatch.Stop();
+            HttpResponseModel httpResponseModel = new HttpResponseModel();
+            httpResponseModel.HttpStatusCode = HttpStatusCode.BadRequest;
+            httpResponseModel.Message = message;
+            httpResponseModel.Exception = exception;
+            httpResponseModel.Duration = _stopwatch.Elapsed.TotalMilliseconds;
+            return Create(httpResponseModel);
+        }
     }
 }

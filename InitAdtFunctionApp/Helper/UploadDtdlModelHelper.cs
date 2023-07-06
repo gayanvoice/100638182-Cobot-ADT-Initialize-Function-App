@@ -38,13 +38,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Cobot' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: $"The 'Cobot' DTDL model already exists.");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -64,13 +60,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Base' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Base' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -90,13 +82,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'ControlBox' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'ControlBox' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -116,13 +104,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Elbow' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Elbow' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -142,13 +126,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Payload' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Payload' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -168,13 +148,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Shoulder' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Shoulder' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -194,13 +170,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Tool' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Tool' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -220,13 +192,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Wrist1' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Wrist1' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -246,13 +214,9 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Wrist2' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                 catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Wrist2' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
@@ -272,18 +236,36 @@ namespace InitAdtFunctionApp.Helper
                     await digitalTwinsClient.CreateModelsAsync(dtdlModels);
                     return httpResponseHelper.CreateOkRequest(message: $"The 'Wrist3' DTDL model uploaded successfully.");
                 }
-                catch (RequestFailedException)
+                catch (RequestFailedException e)
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'Wrist3' DTDL model already exists");
-                }
-                catch (Exception e)
-                {
-                    return httpResponseHelper.CreateBadRequest(message: e.ToString());
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
                 }
             }
             else
             {
                 return httpResponseHelper.CreateBadRequest(message: $" A valid 'Wrist3DtdlModelStorageUrl' parameter is required in the environment.");
+            }
+        }
+        public async Task<HttpResponseMessage> JointLoadAsync()
+        {
+            string jointLoadDtdlModelStorageUrl = Environment.GetEnvironmentVariable("JointLoadDtdlModelStorageUrl");
+            if (jointLoadDtdlModelStorageUrl is not null)
+            {
+                try
+                {
+                    string jointLoadDtdlModel = await new HttpClient().GetStringAsync(jointLoadDtdlModelStorageUrl);
+                    List<string> dtdlModels = new List<string> { jointLoadDtdlModel };
+                    await digitalTwinsClient.CreateModelsAsync(dtdlModels);
+                    return httpResponseHelper.CreateOkRequest(message: $"The 'JointLoad' DTDL model uploaded successfully.");
+                }
+                catch (RequestFailedException e)
+                {
+                    return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
+                }
+            }
+            else
+            {
+                return httpResponseHelper.CreateBadRequest(message: $" A valid 'JointLoadDtdlModelStorageUrl' parameter is required in the environment.");
             }
         }
     }

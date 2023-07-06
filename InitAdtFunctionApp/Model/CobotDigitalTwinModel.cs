@@ -13,9 +13,9 @@ namespace InitAdtFunctionApp.Model
                 Id = cobotDigitalTwinModel.Id,
                 Metadata = { ModelId = "dtmi:com:Cobot:Cobot;1" },
                 Contents =
-                    {
-                        { "elapsed_time", cobotDigitalTwinModel.ElapsedTime }
-                    },
+                {
+                    { "elapsed_time", cobotDigitalTwinModel.ElapsedTime }
+                },
             };
         }
     }

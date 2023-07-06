@@ -38,7 +38,25 @@ namespace InitAdtFunctionApp.Helper
                     .GetBasicDigitalTwin(cobotDigitalTwinModel: cobotDigitalTwinModel);
 
                 await digitalTwinsClient.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(cobotDigitalTwinModel.Id, cobotBasicDigitalTwinModel);
-                return httpResponseHelper.CreateOkRequest(message: $"The 'dtmi:com:Cobot:Cobot;1' ADT model uploaded successfully.");
+                return httpResponseHelper.CreateOkRequest(message: $"The 'dtmi:com:Cobot:Cobot;1' ADT model created successfully.");
+            }
+            catch (Exception e)
+            {
+                return httpResponseHelper.CreateBadRequest(message: e.ToString());
+            }
+        }
+        public async Task<HttpResponseMessage> ControlBoxAsync()
+        {
+            try
+            {
+                ControlBoxDigitalTwinModel controlBoxDigitalTwinModel = new ControlBoxDigitalTwinModel();
+                controlBoxDigitalTwinModel.Id = "ControlBox";
+                controlBoxDigitalTwinModel.Voltage = 0.0;
+
+                BasicDigitalTwin cobotBasicDigitalTwinModel = ControlBoxDigitalTwinModel.GetBasicDigitalTwin(controlBoxDigitalTwinModel: controlBoxDigitalTwinModel);
+
+                await digitalTwinsClient.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(controlBoxDigitalTwinModel.Id, cobotBasicDigitalTwinModel);
+                return httpResponseHelper.CreateOkRequest(message: $"The 'dtmi:com:Cobot:ControlBox;1' ADT model created successfully.");
             }
             catch (Exception e)
             {

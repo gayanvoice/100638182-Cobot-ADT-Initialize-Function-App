@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 namespace InitAdtFunctionApp.Model
 {
@@ -8,5 +7,6 @@ namespace InitAdtFunctionApp.Model
         public HttpStatusCode HttpStatusCode { get; set; }
         public string Message { get; set; }
         public double Duration { get; set; }
+        public object Exception { get; set; }
     }
 }
