@@ -6,6 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using CobotADTInitializeFunctionApp.Helper;
+using System.Net;
+using CobotADTInitializeFunctionApp.Interface;
+using System.Collections.Generic;
+using CobotADTInitializeFunctionApp.Factory;
+using Azure.DigitalTwins.Core;
+using Azure.Identity;
+using Azure;
 
 namespace CobotADTInitializeFunctionApp
 {
@@ -72,55 +79,53 @@ namespace CobotADTInitializeFunctionApp
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
-            HttpResponseHelper httpResponseHelper = new HttpResponseHelper();
-
+            Dictionary<string, IAdtModelCreator> adtModelCreatorDictionary = new Dictionary<string, IAdtModelCreator>
+            {
+                { "Cobot", new CobotAdtModelCreator() },
+                { "Base", new BaseAdtModelCreator() },
+                { "ControlBox", new ControlBoxAdtModelCreator() },
+                { "Elbow", new ElbowAdtModelCreator() },
+                { "JointLoad", new JointLoadAdtModelCreator() },
+                { "Payload", new PayloadAdtModelCreator() },
+                { "Shoulder", new ShoulderAdtModelCreator() },
+                { "Tool", new ToolAdtModelCreator() },
+                { "Wrist1", new Wrist1AdtModelCreator() },
+                { "Wrist2", new Wrist2AdtModelCreator() },
+                { "Wrist3", new Wrist3AdtModelCreator() }
+            };
             string adtInstanceUrl = Environment.GetEnvironmentVariable("AdtInstanceUrl");
+            string name = req.Query["name"];
+            string id = req.Query["id"];
             if (adtInstanceUrl is not null)
             {
-
-                CreateAdtModelHelper createAdtModelHelper = new CreateAdtModelHelper(httpResponseHelper: httpResponseHelper);
-                createAdtModelHelper.Create(adtInstanceUrl: adtInstanceUrl);
-
-                string adtModelName = req.Query["adtModelName"];
-                if (adtModelName is not null)
+                if (name is not null)
                 {
-                    switch (adtModelName)
+                    if (id is not null)
                     {
-                        case "Cobot":
-                            return await createAdtModelHelper.CobotAsync();
-                        case "ControlBox":
-                            return await createAdtModelHelper.ControlBoxAsync();
-                        case "Payload":
-                            return await createAdtModelHelper.PayloadAsync();
-                        case "JointLoad":
-                            return await createAdtModelHelper.JointLoadAsync();
-                        case "Base":
-                            return await createAdtModelHelper.BaseAsync();
-                        case "Shoulder":
-                            return await createAdtModelHelper.ShoulderAsync();
-                        case "Elbow":
-                            return await createAdtModelHelper.ElbowAsync();
-                        case "Wrist1":
-                            return await createAdtModelHelper.Wrist1Async();
-                        case "Wrist2":
-                            return await createAdtModelHelper.Wrist2Async();
-                        case "Wrist3":
-                            return await createAdtModelHelper.Wrist3Async();
-                        case "Tool":
-                            return await createAdtModelHelper.ToolAsync();
-                        default:
-                            return httpResponseHelper.CreateBadRequest(message: "A valid 'adtModelName' parameter is required in the query string.");
+                        if (adtModelCreatorDictionary.TryGetValue(name, out IAdtModelCreator creator))
+                        {
+                            return await creator.CreateAsync(id);
+                        }
+                        else
+                        {
+                            return new HttpResponseHelper().CreateBadRequest(message: "A valid 'name' parameter is required in the query string.");
+                        }
+                    }
+                    else
+                    {
+                        return new HttpResponseHelper().CreateBadRequest(message: "The 'id' parameter is required in the query string.");
                     }
                 }
                 else
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'adtModelName' parameter is required in the query string.");
+                    return new HttpResponseHelper().CreateBadRequest(message: "The 'name' parameter is required in the query string.");
                 }
             }
             else
             {
-                return httpResponseHelper.CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
+                return new HttpResponseHelper().CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
             }
+
         }
         [FunctionName("CreateADTRelationshipFunction")]
         public static async Task<HttpResponseMessage> CreateADTRelationshipFunction(
@@ -128,51 +133,59 @@ namespace CobotADTInitializeFunctionApp
             ILogger log)
         {
             HttpResponseHelper httpResponseHelper = new HttpResponseHelper();
-
+            AdtRelationshipCreator adtRelationshipCreator = new AdtRelationshipCreator();
             string adtInstanceUrl = Environment.GetEnvironmentVariable("AdtInstanceUrl");
+            string name = req.Query["name"];
+            string from = req.Query["from"];
+            string to = req.Query["to"];
             if (adtInstanceUrl is not null)
             {
-
-                CreateAdtRelationshipHelper createAdtRelationshipHelper = new CreateAdtRelationshipHelper(httpResponseHelper: httpResponseHelper);
-                createAdtRelationshipHelper.Create(adtInstanceUrl: adtInstanceUrl);
-
-                string adtRelationshipName = req.Query["adtRelationshipName"];
-                if (adtRelationshipName is not null)
+                if (name is not null)
                 {
-                    switch (adtRelationshipName)
+                    if (from is not null)
                     {
-                        case "CobotToControlBox":
-                            return await createAdtRelationshipHelper.CobotToControlBoxAsync();
-                        case "CobotToJointLoad":
-                            return await createAdtRelationshipHelper.CobotToJointLoadAsync();
-                        case "CobotToPayload":
-                            return await createAdtRelationshipHelper.CobotToPayloadAsync();
-                        case "JointLoadToBase":
-                            return await createAdtRelationshipHelper.JointLoadToBaseAsync();
-                        case "JointLoadToShoulder":
-                            return await createAdtRelationshipHelper.JointLoadToShoulderAsync();
-                        case "JointLoadToElbow":
-                            return await createAdtRelationshipHelper.JointLoadToElbowAsync();
-                        case "JointLoadToWrist1":
-                            return await createAdtRelationshipHelper.JointLoadToWrist1Async();
-                        case "JointLoadToWrist2":
-                            return await createAdtRelationshipHelper.JointLoadToWrist2Async();
-                        case "JointLoadToWrist3":
-                            return await createAdtRelationshipHelper.JointLoadToWrist3Async();
-                        case "JointLoadToTool":
-                            return await createAdtRelationshipHelper.JointLoadToToolAsync();
-                        default:
-                            return httpResponseHelper.CreateBadRequest(message: "A valid 'adtRelationshipName' parameter is required in the query string.");
+                        if (to is not null)
+                        {
+                            DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ExcludeEnvironmentCredential = true });
+                            DigitalTwinsClient digitalTwinsClient = new DigitalTwinsClient(new Uri(adtInstanceUrl), defaultAzureCredential);
+                            try
+                            {
+                                var basicRelationship = new BasicRelationship
+                                {
+                                    TargetId = to,
+                                    Name = name
+                                };
+                                string relatioshipId = $"{from}-{name}-{to}";
+                                await digitalTwinsClient.CreateOrReplaceRelationshipAsync<BasicRelationship>(from, relatioshipId, basicRelationship);
+                                return httpResponseHelper.CreateOkRequest(message: $"The relationship from '{from}' ADT model to '{to}' has been created successfully.");
+                            }
+                            catch (RequestFailedException e)
+                            {
+                                return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
+                            }
+                            catch (ArgumentNullException e)
+                            {
+                                return httpResponseHelper.CreateBadRequest(message: $"The 'digitalTwinId' or 'relationshipId' is null.", exception: e);
+                            }
+                        }
+                        else
+                        {
+                            return new HttpResponseHelper().CreateBadRequest(message: "The 'to' parameter is required in the query string.");
+                        }
+                    }
+                    else
+                    {
+                        return new HttpResponseHelper().CreateBadRequest(message: "The 'from' parameter is required in the query string.");
                     }
                 }
                 else
                 {
-                    return httpResponseHelper.CreateBadRequest(message: "The 'adtRelationshipName' parameter is required in the query string.");
+                    return new HttpResponseHelper().CreateBadRequest(message: "The 'name' parameter is required in the query string.");
                 }
             }
             else
             {
-                return httpResponseHelper.CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
+                return new HttpResponseHelper().CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
             }
         }
     }
