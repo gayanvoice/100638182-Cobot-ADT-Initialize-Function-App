@@ -1,4 +1,4 @@
-﻿using InitAdtFunctionApp.Model;
+﻿using CobotADTInitializeFunctionApp.Model;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace InitAdtFunctionApp.Helper
+namespace CobotADTInitializeFunctionApp.Helper
 {
     internal class HttpResponseHelper
     {

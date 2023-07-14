@@ -1,6 +1,6 @@
 ﻿using Azure.DigitalTwins.Core;
 
-namespace AdtInitFunctionApp.Model.AdtModel
+namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class ControlBoxAdtModel
     {

@@ -1,6 +1,6 @@
 ﻿using Azure.DigitalTwins.Core;
 using Azure;
-using InitAdtFunctionApp.Model;
+using CobotADTInitializeFunctionApp.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure.Identity;
 
-namespace InitAdtFunctionApp.Helper
+namespace CobotADTInitializeFunctionApp.Helper
 {
     internal class CreateAdtRelationshipHelper
     {

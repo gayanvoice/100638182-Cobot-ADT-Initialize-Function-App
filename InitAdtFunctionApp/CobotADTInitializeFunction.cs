@@ -5,14 +5,14 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
-using InitAdtFunctionApp.Helper;
+using CobotADTInitializeFunctionApp.Helper;
 
-namespace InitAdtFunctionApp
+namespace CobotADTInitializeFunctionApp
 {
-    public static class AdtInitFunction
+    public static class CobotADTInitializeFunction
     {
-        [FunctionName("UploadDtdlModelFunction")]
-        public static async Task<HttpResponseMessage> RunUploadDtdlModelFunction(
+        [FunctionName("UploadDTDLModelFunction")]
+        public static async Task<HttpResponseMessage> UploadDTDLModelFunction(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -67,8 +67,8 @@ namespace InitAdtFunctionApp
             }            
         }
 
-        [FunctionName("CreateAdtModelFunction")]
-        public static async Task<HttpResponseMessage> RunCreateAdtModelFunction(
+        [FunctionName("CreateADTModelFunction")]
+        public static async Task<HttpResponseMessage> CreateADTModelFunction(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -122,8 +122,8 @@ namespace InitAdtFunctionApp
                 return httpResponseHelper.CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
             }
         }
-        [FunctionName("CreateAdtRelationshipFunction")]
-        public static async Task<HttpResponseMessage> RunCreateAdtRelationshipFunction(
+        [FunctionName("CreateADTRelationshipFunction")]
+        public static async Task<HttpResponseMessage> CreateADTRelationshipFunction(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {

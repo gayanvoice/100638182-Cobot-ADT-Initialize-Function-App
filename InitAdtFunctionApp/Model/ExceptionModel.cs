@@ -1,4 +1,4 @@
-﻿namespace InitAdtFunctionApp.Model
+﻿namespace CobotADTInitializeFunctionApp.Model
 {
     internal class ExceptionModel
     {

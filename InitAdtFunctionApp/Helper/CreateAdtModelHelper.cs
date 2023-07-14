@@ -4,9 +4,9 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Azure.Identity;
-using AdtInitFunctionApp.Model.AdtModel;
+using CobotADTInitializeFunctionApp.Model.AdtModel;
 
-namespace InitAdtFunctionApp.Helper
+namespace CobotADTInitializeFunctionApp.Helper
 {
     internal class CreateAdtModelHelper
     {
