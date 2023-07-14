@@ -6,14 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using CobotADTInitializeFunctionApp.Helper;
-using System.Net;
 using CobotADTInitializeFunctionApp.Interface;
 using System.Collections.Generic;
 using CobotADTInitializeFunctionApp.Factory;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 using Azure;
-using CobotADTInitializeFunctionApp.Model.AdtModel;
 
 namespace CobotADTInitializeFunctionApp
 {
