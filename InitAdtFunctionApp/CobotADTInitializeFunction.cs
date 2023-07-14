@@ -13,6 +13,7 @@ using CobotADTInitializeFunctionApp.Factory;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 using Azure;
+using CobotADTInitializeFunctionApp.Model.AdtModel;
 
 namespace CobotADTInitializeFunctionApp
 {
@@ -181,6 +182,88 @@ namespace CobotADTInitializeFunctionApp
                 else
                 {
                     return new HttpResponseHelper().CreateBadRequest(message: "The 'name' parameter is required in the query string.");
+                }
+            }
+            else
+            {
+                return new HttpResponseHelper().CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
+            }
+        }
+        [FunctionName("DeleteADTRelationshipFunction")]
+        public static async Task<HttpResponseMessage> DeleteADTRelationshipFunction(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            HttpResponseHelper httpResponseHelper = new HttpResponseHelper();
+            AdtRelationshipCreator adtRelationshipCreator = new AdtRelationshipCreator();
+            string adtInstanceUrl = Environment.GetEnvironmentVariable("AdtInstanceUrl");
+            string id = req.Query["id"];
+            if (adtInstanceUrl is not null)
+            {
+                if (id is not null)
+                {
+                    DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ExcludeEnvironmentCredential = true });
+                    DigitalTwinsClient digitalTwinsClient = new DigitalTwinsClient(new Uri(adtInstanceUrl), defaultAzureCredential);
+                    try
+                    {
+                        AsyncPageable<BasicRelationship> baseRelationships = digitalTwinsClient.GetRelationshipsAsync<BasicRelationship>(id);
+                        await foreach (BasicRelationship baseRelationship in baseRelationships)
+                        {
+                            await digitalTwinsClient.DeleteRelationshipAsync(id, baseRelationship.Id).ConfigureAwait(false);
+                        }
+                        return httpResponseHelper.CreateOkRequest(message: $"The relationship '{id}' has been deleted successfully.");
+                    }
+                    catch (RequestFailedException e)
+                    {
+                        return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
+                    }
+                    catch (ArgumentNullException e)
+                    {
+                        return httpResponseHelper.CreateBadRequest(message: $"The 'digitalTwinId' or 'relationshipId' is null.", exception: e);
+                    }
+                }
+                else
+                {
+                    return new HttpResponseHelper().CreateBadRequest(message: "The 'id' parameter is required in the query string.");
+                }
+            }
+            else
+            {
+                return new HttpResponseHelper().CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
+            }
+        }
+        [FunctionName("DeleteADTModelFunction")]
+        public static async Task<HttpResponseMessage> DeleteADTModelFunction(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            HttpResponseHelper httpResponseHelper = new HttpResponseHelper();
+            AdtRelationshipCreator adtRelationshipCreator = new AdtRelationshipCreator();
+            string adtInstanceUrl = Environment.GetEnvironmentVariable("AdtInstanceUrl");
+            string id = req.Query["id"];
+            if (adtInstanceUrl is not null)
+            {
+                if (id is not null)
+                {
+                    DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ExcludeEnvironmentCredential = true });
+                    DigitalTwinsClient digitalTwinsClient = new DigitalTwinsClient(new Uri(adtInstanceUrl), defaultAzureCredential);
+                    try
+                    {
+                        await digitalTwinsClient.DeleteDigitalTwinAsync(id);
+                        return httpResponseHelper.CreateOkRequest(message: $"The '{id}' ADT model deleted successfully.");
+                    }
+                    catch (RequestFailedException e)
+                    {
+                        return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
+                    }
+                    catch (ArgumentNullException e)
+                    {
+                        return httpResponseHelper.CreateBadRequest(message: $"The 'digitalTwinId' or 'relationshipId' is null.", exception: e);
+                    }
+                }
+                else
+                {
+                    return new HttpResponseHelper().CreateBadRequest(message: "The 'id' parameter is required in the query string.");
                 }
             }
             else
