@@ -4,7 +4,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class JointLoadAdtModel
     {
-        public string Id { get; set; } = "JointLoad";
+        public string Id { get; set; }
         public string ModelId { get; set; } = "dtmi:com:Cobot:JointLoad;1";
         public static BasicDigitalTwin GetBasicDigitalTwin(JointLoadAdtModel jointLoadAdtModel)
         {

@@ -4,7 +4,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class BaseAdtModel
     {
-        public string Id { get; set; } = "Base";
+        public string Id { get; set; }
         public string ModelId { get; set; } = "dtmi:com:Cobot:JointLoad:Base;1";
         public double Position { get; set; }
         public double Temperature { get; set; }

@@ -4,7 +4,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class CobotAdtModel
     {
-        public string Id { get; set; } = "Cobot";
+        public string Id { get; set; }
         public string ModelId { get; set; } = "dtmi:com:Cobot:Cobot;1";
         public double ElapsedTime { get; set; }
         public static BasicDigitalTwin GetBasicDigitalTwin(CobotAdtModel cobotAdtModel)

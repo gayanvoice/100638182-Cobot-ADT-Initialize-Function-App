@@ -4,7 +4,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class ControlBoxAdtModel
     {
-        public string Id { get; set; } = "ControlBox";
+        public string Id { get; set; }
         public string ModelId { get; set; } = "dtmi:com:Cobot:ControlBox;1";
         public double Voltage { get; set; }
         public static BasicDigitalTwin GetBasicDigitalTwin(ControlBoxAdtModel controlBoxAdtModel)

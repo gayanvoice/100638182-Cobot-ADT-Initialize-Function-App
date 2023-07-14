@@ -4,7 +4,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class Wrist1AdtModel
     {
-        public string Id { get; set; } = "Wrist1";
+        public string Id { get; set; }
         public string ModelId { get; set; } = "dtmi:com:Cobot:JointLoad:Wrist1;1";
         public double Position { get; set; }
         public double Temperature { get; set; }

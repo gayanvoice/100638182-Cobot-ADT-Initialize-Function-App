@@ -4,7 +4,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class ToolAdtModel
     {
-        public string Id { get; set; } = "Tool";
+        public string Id { get; set; }
         public string ModelId { get; set; } = "dtmi:com:Cobot:JointLoad:Tool;1";
         public double Temperature { get; set; }
         public double Voltage { get; set; }

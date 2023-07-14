@@ -4,7 +4,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
 {
     internal class PayloadAdtModel
     {
-        public string Id { get; set; } = "Payload";
+        public string Id { get; set; }
         public string ModelId { get; set; } = "dtmi:com:Cobot:Payload;1";
         public double Mass { get; set; }
         public double CogX { get; set; }
