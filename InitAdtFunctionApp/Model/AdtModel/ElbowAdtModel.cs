@@ -20,12 +20,12 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
                 Metadata = { ModelId = elbowAdtModel.ModelId },
                 Contents =
                     {
-                        { "position", elbowAdtModel.Position },
-                        { "temperature", elbowAdtModel.Temperature },
-                        { "voltage", elbowAdtModel.Voltage },
-                        { "x", elbowAdtModel.X },
-                        { "y", elbowAdtModel.Y },
-                        { "z", elbowAdtModel.Z }
+                        { "Position", elbowAdtModel.Position },
+                        { "Temperature", elbowAdtModel.Temperature },
+                        { "Voltage", elbowAdtModel.Voltage },
+                        { "X", elbowAdtModel.X },
+                        { "Y", elbowAdtModel.Y },
+                        { "Z", elbowAdtModel.Z }
                     },
             };
         }

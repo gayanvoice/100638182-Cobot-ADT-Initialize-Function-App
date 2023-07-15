@@ -18,10 +18,10 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
                 Metadata = { ModelId = payloadAdtModel.ModelId },
                 Contents =
                     {
-                        { "mass", payloadAdtModel.Mass },
-                        { "cogx", payloadAdtModel.CogX },
-                        { "cogy", payloadAdtModel.CogY },
-                        { "cogz", payloadAdtModel.CogZ }
+                        { "Mass", payloadAdtModel.Mass },
+                        { "CogX", payloadAdtModel.CogX },
+                        { "CogY", payloadAdtModel.CogY },
+                        { "CogZ", payloadAdtModel.CogZ }
                     },
             };
         }

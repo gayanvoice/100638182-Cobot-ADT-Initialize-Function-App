@@ -17,9 +17,9 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
                 Metadata = { ModelId = wrist3AdtModel.ModelId },
                 Contents =
                     {
-                        { "position", wrist3AdtModel.Position },
-                        { "temperature", wrist3AdtModel.Temperature },
-                        { "voltage", wrist3AdtModel.Voltage }
+                        { "Position", wrist3AdtModel.Position },
+                        { "Temperature", wrist3AdtModel.Temperature },
+                        { "Voltage", wrist3AdtModel.Voltage }
                     },
             };
         }

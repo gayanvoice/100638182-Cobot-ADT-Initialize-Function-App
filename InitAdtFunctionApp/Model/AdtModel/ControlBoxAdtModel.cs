@@ -15,7 +15,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
                 Metadata = { ModelId = controlBoxAdtModel.ModelId },
                 Contents =
                     {
-                        { "voltage", controlBoxAdtModel.Voltage }
+                        { "Voltage", controlBoxAdtModel.Voltage }
                     },
             };
         }

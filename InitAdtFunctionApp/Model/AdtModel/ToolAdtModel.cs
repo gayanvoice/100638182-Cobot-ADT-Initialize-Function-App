@@ -22,14 +22,14 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
                 Metadata = { ModelId = toolAdtModel.ModelId },
                 Contents =
                     {
-                        { "temperature", toolAdtModel.Temperature },
-                        { "voltage", toolAdtModel.Voltage },
-                        { "x", toolAdtModel.X },
-                        { "y", toolAdtModel.Y },
-                        { "z", toolAdtModel.Z },
-                        { "rx", toolAdtModel.Rx },
-                        { "ry", toolAdtModel.Ry },
-                        { "rz", toolAdtModel.Rz }
+                        { "Temperature", toolAdtModel.Temperature },
+                        { "Voltage", toolAdtModel.Voltage },
+                        { "X", toolAdtModel.X },
+                        { "Y", toolAdtModel.Y },
+                        { "Z", toolAdtModel.Z },
+                        { "Rx", toolAdtModel.Rx },
+                        { "Ry", toolAdtModel.Ry },
+                        { "Rz", toolAdtModel.Rz }
                     },
             };
         }

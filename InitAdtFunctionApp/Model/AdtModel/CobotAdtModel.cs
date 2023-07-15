@@ -15,7 +15,7 @@ namespace CobotADTInitializeFunctionApp.Model.AdtModel
                 Metadata = { ModelId = cobotAdtModel.ModelId },
                 Contents =
                 {
-                    { "elapsed_time", cobotAdtModel.ElapsedTime }
+                    { "ElapsedTime", cobotAdtModel.ElapsedTime }
                 },
             };
         }
