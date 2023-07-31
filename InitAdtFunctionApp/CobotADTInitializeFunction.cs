@@ -160,10 +160,15 @@ namespace CobotADTInitializeFunctionApp
             HttpResponseHelper httpResponseHelper = new HttpResponseHelper();
             AdtRelationshipCreator adtRelationshipCreator = new AdtRelationshipCreator();
             string adtInstanceUrl = Environment.GetEnvironmentVariable("AdtInstanceUrl");
+            string from = req.Query["from"];
             string id = req.Query["id"];
             if (adtInstanceUrl is null)
             {
                 return new HttpResponseHelper().CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
+            }
+            if (from is null)
+            {
+                return new HttpResponseHelper().CreateBadRequest(message: "The 'from' parameter is required in the query string.");
             }
             if (id is null)
             {
@@ -173,11 +178,7 @@ namespace CobotADTInitializeFunctionApp
             DigitalTwinsClient digitalTwinsClient = new DigitalTwinsClient(new Uri(adtInstanceUrl), defaultAzureCredential);
             try
             {
-                AsyncPageable<BasicRelationship> baseRelationships = digitalTwinsClient.GetRelationshipsAsync<BasicRelationship>(id);
-                await foreach (BasicRelationship baseRelationship in baseRelationships)
-                {
-                    await digitalTwinsClient.DeleteRelationshipAsync(id, baseRelationship.Id).ConfigureAwait(false);
-                }
+                await digitalTwinsClient.DeleteRelationshipAsync(from, id);
                 return httpResponseHelper.CreateOkRequest(message: $"The relationship '{id}' has been deleted successfully.");
             }
             catch (RequestFailedException e)
