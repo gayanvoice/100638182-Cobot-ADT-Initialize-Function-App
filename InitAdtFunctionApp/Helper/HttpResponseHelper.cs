@@ -18,7 +18,7 @@ namespace CobotADTInitializeFunctionApp.Helper
         private static HttpResponseMessage Create(HttpResponseModel httpResponseModel)
         {
             string httpResponseModelJson = JsonConvert.SerializeObject(httpResponseModel);
-            return new HttpResponseMessage(httpResponseModel.HttpStatusCode)
+            return new HttpResponseMessage(HttpStatusCode.OK)
             {
                 Content = new StringContent(httpResponseModelJson, Encoding.UTF8, "application/json")
             };
