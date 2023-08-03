@@ -224,8 +224,8 @@ namespace CobotADTInitializeFunctionApp
                 return httpResponseHelper.CreateBadRequest(message: $"The 'digitalTwinId' or 'relationshipId' is null.", exception: e);
             }
         }
-        [FunctionName("GetADTModelFunction")]
-        public static async Task<HttpResponseMessage> GetADTModelFunction(
+        [FunctionName("SelectADTModelFunction")]
+        public static async Task<HttpResponseMessage> SelectADTModelFunction(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
