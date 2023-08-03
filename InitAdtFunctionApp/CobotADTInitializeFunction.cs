@@ -224,5 +224,38 @@ namespace CobotADTInitializeFunctionApp
                 return httpResponseHelper.CreateBadRequest(message: $"The 'digitalTwinId' or 'relationshipId' is null.", exception: e);
             }
         }
+        [FunctionName("GetADTModelFunction")]
+        public static async Task<HttpResponseMessage> GetADTModelFunction(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            HttpResponseHelper httpResponseHelper = new HttpResponseHelper();
+            AdtRelationshipCreator adtRelationshipCreator = new AdtRelationshipCreator();
+            string adtInstanceUrl = Environment.GetEnvironmentVariable("AdtInstanceUrl");
+            string id = req.Query["id"];
+            if (adtInstanceUrl is null)
+            {
+                return new HttpResponseHelper().CreateBadRequest(message: $" A valid 'AdtInstanceUrl' parameter is required in the environment.");
+            }
+            if (id is null)
+            {
+                return new HttpResponseHelper().CreateBadRequest(message: "The 'id' parameter is required in the query string.");
+            }
+            DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential(new DefaultAzureCredentialOptions { ExcludeEnvironmentCredential = true });
+            DigitalTwinsClient digitalTwinsClient = new DigitalTwinsClient(new Uri(adtInstanceUrl), defaultAzureCredential);
+            try { 
+                Response<BasicDigitalTwin> twinResponse = await digitalTwinsClient.GetDigitalTwinAsync<BasicDigitalTwin>(id);
+                return httpResponseHelper.CreateOkRequest(message: System.Text.Json.JsonSerializer.Serialize(twinResponse));
+            }
+            catch (RequestFailedException e)
+            {
+                return httpResponseHelper.CreateBadRequest(message: $"Azure Digital Twin service error.", exception: e);
+            }
+            catch (ArgumentNullException e)
+            {
+                return httpResponseHelper.CreateBadRequest(message: $"The 'digitalTwinId' or 'relationshipId' is null.", exception: e);
+            }
+
+        }
     }
 }
